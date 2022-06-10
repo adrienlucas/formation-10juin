@@ -10,7 +10,7 @@
         "symfony/polyfill-php80": "*"
     },
     "require": {
-        "php": ">=8.0.2",
+        "php": ">=8.1",
         "ext-pdo_sqlite": "*",
         "doctrine/dbal": "^3.1",
         "doctrine/doctrine-bundle": "^2.5",
@@ -26,6 +26,7 @@
         "symfony/flex": "^2.0",
         "symfony/form": "^6.0",
         "symfony/framework-bundle": "^6.0",
+        "symfony/http-client": "6.1.*",
         "symfony/intl": "^6.0",
         "symfony/mailer": "^6.0",
         "symfony/monolog-bundle": "^3.7",
@@ -57,7 +58,7 @@
     },
     "config": {
         "platform": {
-            "php": "8.0.2"
+            "php": "8.1.6"
         },
         "preferred-install": {
             "*": "dist"
@@ -97,7 +98,7 @@
     "extra": {
         "symfony": {
             "allow-contrib": true,
-            "require": "6.0.*"
+            "require": "6.1.*"
         }
     }
 }

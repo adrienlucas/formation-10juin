@@ -54,7 +54,9 @@ class PostVoter extends Voter
         if (!$user instanceof User) {
             return false;
         }
+        in_array($post->getACL()->getUsers(), $user);
 
+        in_array($user->getPostManageable(), $post);
         // the logic of this voter is pretty simple: if the logged user is the
         // author of the given blog post, grant permission; otherwise, deny it.
         // (the supports() method guarantees that $post is a Post object)

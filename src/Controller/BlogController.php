@@ -26,6 +26,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Contracts\Service\Attribute\Required;
 
 /**
  * Controller used to manage blog contents in the public part of the site.
@@ -34,7 +35,7 @@ use Symfony\Component\Routing\Annotation\Route;
  * @author Javier Eguiluz <javier.eguiluz@gmail.com>
  */
 #[Route('/blog')]
-class BlogController extends AbstractController
+class BlogController
 {
     /**
      * NOTE: For standard formats, Symfony will also automatically choose the best
@@ -48,11 +49,12 @@ class BlogController extends AbstractController
         Route('/page/{page<[1-9]\d*>}', defaults: ['_format' => 'html'], methods: ['GET'], name: 'blog_index_paginated'),
     ]
     #[Cache(smaxage: 10)]
-    public function index(Request $request, int $page, string $_format, PostRepository $posts, TagRepository $tags): Response
+    public function __invoke(Request $request, int $page, string $_format, PostRepository $posts, TagRepository $tags): Response
     {
         $tag = null;
         if ($request->query->has('tag')) {
             $tag = $tags->findOneBy(['name' => $request->query->get('tag')]);
+            $tag
         }
         $latestPosts = $posts->findLatest($page, $tag);
 
@@ -72,8 +74,9 @@ class BlogController extends AbstractController
      *
      * See https://symfony.com/doc/current/bundles/SensioFrameworkExtraBundle/annotations/converters.html
      */
-    #[Route('/posts/{slug}', methods: ['GET'], name: 'blog_post')]
-    public function postShow(Post $post): Response
+    #[Route('/posts/actus/1234', methods: ['GET'], name: 'blog_post')]
+    #[Route('/posts/{id_categ}/{id_post}', methods: ['GET'], name: 'blog_post')]
+    public function postShow(int $id_categ, int $id_post): Response
     {
         // Symfony's 'dump()' function is an improved version of PHP's 'var_dump()' but
         // it's not available in the 'prod' environment to prevent leaking sensitive information.

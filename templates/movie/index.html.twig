@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello MovieController!{% endblock %}
+
+{% block body %}
+ {% set requested_title = app.request.get('title') %}
+ Data for the "{{ requested_title }}" movie :
+    <ul>
+        <li>Director : {{ movie.Director }}</li>
+        <li>Release date : {{ movie.Released }}</li>
+    </ul>
+{% endblock %}

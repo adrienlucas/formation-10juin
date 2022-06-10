@@ -42,6 +42,16 @@ class Tag implements \JsonSerializable
         return $this->id;
     }
 
+    private string $toto;
+
+    /**
+     * @param string $toto
+     */
+    public function setToto(string $toto): void
+    {
+        $this->toto = $toto;
+    }
+
     public function setName(string $name): void
     {
         $this->name = $name;
